@@ -1,0 +1,4 @@
+<mat-form-field floatLabel='always'>
+  <input matInput [placeholder]='field.label' [name]="field.name" type="text" [disabled]='field.isReadOnly || disabled' [value]='innerValue'
+    (change)='change($event.target.value)' />
+</mat-form-field>

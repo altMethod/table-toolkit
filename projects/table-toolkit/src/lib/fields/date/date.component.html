@@ -1,0 +1,5 @@
+<mat-form-field floatLabel='always'>
+  <input matInput [matDatepicker]='picker' disabled [placeholder]='field.label' (dateChange)='change($event)'>
+  <mat-datepicker-toggle matSuffix [for]='picker'></mat-datepicker-toggle>
+  <mat-datepicker #picker [disabled]='field.isReadOnly || disabled'></mat-datepicker>
+</mat-form-field>

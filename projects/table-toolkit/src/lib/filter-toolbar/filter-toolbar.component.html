@@ -1,0 +1,29 @@
+<div class="filter-toolbar-container" [formGroup]='form'>
+  <div class="filter-toolbar-item" *ngFor='let field of appliedFilters'>
+    <ng-container [ngSwitch]='field.type'>
+
+      <app-table-base-number-field [formControlName]='field.name' *ngSwitchCase="'number'" [field]='field'></app-table-base-number-field>
+
+      <app-table-base-text-field [formControlName]='field.name' *ngSwitchCase="'text'" [field]='field'></app-table-base-text-field>
+
+      <app-table-base-select-field [formControlName]='field.name' *ngSwitchCase="'select'" [field]='field'></app-table-base-select-field>
+
+      <app-table-base-date-field [formControlName]='field.name' *ngSwitchCase="'date'" [field]='field'></app-table-base-date-field>
+
+      <app-table-base-date-range-field [formControlName]='field.name' *ngSwitchCase="'dateRange'" [field]='field'></app-table-base-date-range-field>
+
+    </ng-container>
+    <a class="filter-toolbar-remove" (click)='removeFilter(field)'>
+      <i class="fa fa-times"></i>
+    </a>
+  </div>
+  <div class="filter-toolbar-button-container">
+    <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">Add Filter</button>
+    <mat-menu #menu="matMenu">
+      <button (click)='addFilter(field)' mat-menu-item *ngFor='let field of remainingFilters'>{{field.label}}</button>
+    </mat-menu>
+  </div>
+  <div class="filter-toolbar-button-container">
+    <button mat-raised-button color='primary' (click)='onFilter()'>Filter</button>
+  </div>
+</div>

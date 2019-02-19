@@ -1,0 +1,28 @@
+<div class="table-base-editor-container" [formGroup]='form'>
+  <div class="flex-column flex-grow">
+    <div class="table-base-editor-item" *ngFor='let field of fields'>
+      <ng-container *ngIf='!field.hideInEditor'>
+        <ng-container [ngSwitch]='field.type'>
+
+          <div class="table-base-editor-field-container">
+            <app-table-base-number-field class="field" [formControlName]='field.name' *ngSwitchCase="'number'" [field]='field'></app-table-base-number-field>
+
+            <app-table-base-text-field class="field" [formControlName]='field.name' *ngSwitchCase="'text'" [field]='field'></app-table-base-text-field>
+
+            <app-table-base-select-field class="field" [formControlName]='field.name' *ngSwitchCase="'select'" [field]='field'></app-table-base-select-field>
+
+            <app-table-base-date-field class="field" [formControlName]='field.name' *ngSwitchCase="'date'" [field]='field'></app-table-base-date-field>
+
+            <app-table-base-date-range-field class="field" [formControlName]='field.name' *ngSwitchCase="'dateRange'"
+              [field]='field'></app-table-base-date-range-field>
+          </div>
+
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div class="table-base-editor-footer">
+    <button mat-button color='warn' (click)='cancel.emit()'>{{cancelLabel ? cancelLabel : 'Cancel'}}</button>
+    <button mat-raised-button color='primary' (click)='save.emit(form.value)'>{{saveLabel ? saveLabel : 'Save'}}</button>
+  </div>
+</div>

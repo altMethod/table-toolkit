@@ -1,0 +1,40 @@
+@import "~styles/variables";
+
+.filter-toolbar {
+  &-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-item {
+    padding-right: 12px !important;
+    position: relative;
+  }
+
+  &-filter {
+    z-index: 2 !important;
+  }
+
+  &-remove {
+    cursor: pointer;
+    z-index: 99;
+    position: absolute;
+    right: 16px;
+    bottom: 24px;
+
+    & i {
+      color: $danger-color;
+    }
+  }
+
+  &-button-container {
+    margin-top: 12px;
+    margin-left: 8px;
+    min-width: 100px;
+
+    & button {
+      width: 100%;
+      font-weight: 600;
+    }
+  }
+}

@@ -1,0 +1,4 @@
+<mat-form-field floatLabel='always'>
+  <input matInput [ngModel]='innerValue' [disabled]='field.isReadOnly || disabled' [placeholder]='field.label' type="number"
+    (input)='change($event.target.value)'>
+</mat-form-field>

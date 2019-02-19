@@ -1,0 +1,23 @@
+.table-base {
+  &-actions-header {
+
+    & div {
+      width: 100%;
+    }
+
+    text-align: center;
+  }
+
+  &-row {
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(25, 25, 25, 0.2);
+    }
+  }
+
+  &-actions-cell {
+    display: flex;
+    justify-content: center;
+  }
+}
