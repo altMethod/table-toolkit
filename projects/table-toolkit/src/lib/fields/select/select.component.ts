@@ -1,7 +1,8 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { FieldBase } from '../base-field';
 import { MatSelectChange } from '@angular/material';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SelectFieldInfo } from '../../field-info';
 
 @Component({
   selector: 'bp-table-base-select-field',
@@ -18,8 +19,11 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class SelectComponent extends FieldBase {
   constructor() { super(); }
 
+  @Input()
+  field: SelectFieldInfo;
+
   change(newValue: MatSelectChange): void {
     this.innerValue = newValue.value;
-    this.onChangedCallback(newValue.value);
+    this.onChangeCallbackWrapper(this.field.showOperator);
   }
 }

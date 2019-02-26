@@ -1,0 +1,21 @@
+<mat-form-field floatLabel='always' *ngIf='field.showOperator' class="multi-select-operator">
+  <mat-select [(value)]='operator' (selectionChange)='operatorChanged()'>
+    <mat-option value='='>is</mat-option>
+    <mat-option value='!='>isn't</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="input-box" floatLabel='always'>
+  <input #input name="currentFilterValue" #input [placeholder]="field.label" type="text" [formControl]="control"
+    matInput [matAutocomplete]="auto" [attr.disabled]='field.isReadOnly' />
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)='optionSelected($event.option.value)'>
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      {{ option.label }}
+    </mat-option>
+  </mat-autocomplete>
+
+</mat-form-field>
+<mat-chip-list class="label-box" *ngIf='innerValue.length'>
+  <mat-chip *ngFor='let label of innerLabels.sort()' (click)='removeSelected(label)' [matTooltip]="'Click to remove'">
+    {{label}}
+  </mat-chip>
+</mat-chip-list>

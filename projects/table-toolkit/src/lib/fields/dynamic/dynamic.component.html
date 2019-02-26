@@ -1,0 +1,49 @@
+<div class="table-base-dynamic-field-container">
+  <div class="table-base-dynamic-field-header">
+    <span>{{field.label}}</span>
+    <div>
+      <button class="add-button" [disabled]='this.form.invalid' (click)='add()'>
+        <mat-icon class="fa fa-plus">add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div [formGroup]='form' class="form-array-container">
+    <div class="table-base-dynamic-field-fields">
+
+      <div class="table-base-dynamic-field-row" formArrayName="items" *ngFor="let item of items.controls; let index = index;">
+        <div class="fields">
+          <ng-container *ngFor='let innerField of field.innerFields'>
+            <ng-container [ngSwitch]='innerField.type' [formGroupName]='index'>
+
+              <bp-table-base-text-field [style.min-width.px]='innerField.minWidth' class="item" *ngSwitchCase="'text'"
+                [field]='innerField' [formControlName]='innerField.name'>
+
+              </bp-table-base-text-field>
+
+              <bp-table-base-date-field [style.min-width.px]='innerField.minWidth' class="item" *ngSwitchCase="'date'"
+                [field]='innerField' [formControlName]='innerField.name'>
+
+              </bp-table-base-date-field>
+
+              <bp-table-base-checkbox-field [style.min-width.px]='innerField.minWidth' class="item" *ngSwitchCase="'checkbox'"
+                [field]='innerField' [formControlName]='innerField.name'>
+
+              </bp-table-base-checkbox-field>
+
+              <bp-table-base-number-field [style.min-width.px]='innerField.minWidth' class="item" [field]='innerField'
+                *ngSwitchCase="'number'" [formControlName]='innerField.name'>
+
+              </bp-table-base-number-field>
+
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="delete-button">
+          <mat-icon color='primary' (click)='delete(index)' class="delete-button-icon">delete</mat-icon>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

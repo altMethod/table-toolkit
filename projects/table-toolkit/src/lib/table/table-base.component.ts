@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { MatTableDataSource, PageEvent, Sort } from '@angular/material';
-import { TableBaseConfig, SortModel, TableBaseFilter } from './table.model';
+import { TableBaseConfig, SortModel, TableBaseFilter, TableBaseResponse } from '../table.model';
+import { FieldInfo, ColumnType } from '../field-info';
 
 @Component({
   selector: 'bp-table-base',
   templateUrl: './table-base.component.html',
   styleUrls: ['./table-base.component.scss']
 })
-export class TableBaseComponent implements OnInit {
+export class TableBaseComponent implements OnInit, OnChanges {
 
   constructor() { }
 
-  @Input() data: Array<any>;
+  @Input() data: TableBaseResponse;
   @Input() filter: TableBaseFilter;
   @Input() config: TableBaseConfig;
 
@@ -28,7 +29,15 @@ export class TableBaseComponent implements OnInit {
 
   ngOnInit() {
     this.initializeColumns();
-    this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource = new MatTableDataSource(this.data.items);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const { data } = changes;
+    if (data) {
+      const source = (data.currentValue as TableBaseResponse).items;
+      this.dataSource = new MatTableDataSource(source);
+    }
   }
 
   changePage(event: PageEvent) {
@@ -44,7 +53,19 @@ export class TableBaseComponent implements OnInit {
 
   private initializeColumns() {
     if (this.config.fields) {
-      this.columns = this.config.fields.map(f => f.name);
+      this.columns = this.config.fields.reduce((acc: Array<string>, current: FieldInfo) => {
+        if (current.hideInTable) {
+          return acc;
+        }
+
+        if (current.type !== ColumnType.container) {
+          return [...acc, current.name];
+        } else {
+          return [...acc, ...current.innerFields
+            .reduce((innerAcc: Array<string>, innerCurrent: FieldInfo) =>
+              innerCurrent.hideInTable ? innerAcc : [...innerAcc, innerCurrent.name], [])];
+        }
+      }, []);
     }
 
     if (this.config.showActionsColumn) {

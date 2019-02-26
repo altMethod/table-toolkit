@@ -1,6 +1,6 @@
-import { Component, OnInit, forwardRef } from '@angular/core';
+import { Component, OnInit, forwardRef, Input } from '@angular/core';
 import { FieldBase } from '../base-field';
-import { FieldInfo, ColumnType } from '../../field-info';
+import { FieldInfo, ColumnType, DateFieldInfo } from '../../field-info';
 import { FormGroup, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -23,6 +23,9 @@ export class DateRangeComponent extends FieldBase {
 
     this.form.valueChanges.subscribe(() => this.onChangedCallback(this.form.value));
   }
+
+  @Input()
+  field: DateFieldInfo;
 
   fromField = new FieldInfo('from', 'From', ColumnType.date);
   toField = new FieldInfo('to', 'To', ColumnType.date);

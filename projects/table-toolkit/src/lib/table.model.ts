@@ -6,6 +6,7 @@ export interface TableBaseConfig {
   fields: Array<FieldInfo>;
   showEdit?: boolean;
   showDelete?: boolean;
+  showAdd?: boolean;
 }
 
 export interface SortModel {
@@ -16,5 +17,23 @@ export interface SortModel {
 export interface TableBaseFilter {
   page: number;
   pageSize: number;
+  count?: number;
+  filterItems?: Array<FilterItem>;
+}
+
+export interface TableBaseResponse {
+  page: number;
+  pageSize: number;
   count: number;
+  items: Array<any>;
+}
+
+export interface FilterItem {
+  propertyName: string;
+  value: any;
+}
+
+export interface ValueWithOperator {
+  value: any;
+  operator: string;
 }

@@ -1,6 +1,7 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { FieldBase } from '../base-field';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NumberFieldInfo } from '../../field-info';
 
 @Component({
   selector: 'bp-table-base-number-field',
@@ -16,4 +17,12 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class NumberComponent extends FieldBase {
   constructor() { super(); }
+
+  @Input()
+  field: NumberFieldInfo;
+
+  change(newValue: number): void {
+    this.innerValue = newValue;
+    this.onChangeCallbackWrapper(this.field.showOperator);
+  }
 }

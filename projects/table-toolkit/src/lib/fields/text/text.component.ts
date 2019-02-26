@@ -1,6 +1,7 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { FieldBase } from '../base-field';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { TextFieldInfo } from '../../field-info';
 
 @Component({
   selector: 'bp-table-base-text-field',
@@ -15,7 +16,13 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class TextFieldComponent extends FieldBase {
-
   constructor() { super(); }
 
+  @Input()
+  field: TextFieldInfo;
+
+  change(newValue: string): void {
+    this.innerValue = newValue;
+    this.onChangeCallbackWrapper(this.field.showOperator);
+  }
 }

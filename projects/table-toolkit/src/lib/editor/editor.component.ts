@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FieldInfo } from '../field-info';
-import { FormGroup, FormControl, FormBuilder, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, AbstractControl, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'bp-table-base-editor',
@@ -19,6 +19,12 @@ export class EditorComponent implements OnInit {
   @Input()
   saveLabel: string;
 
+  @Input()
+  cancelLabel: string;
+
+  @Input()
+  formValidator: ValidatorFn;
+
   @Output()
   save: EventEmitter<any> = new EventEmitter();
 
@@ -32,7 +38,7 @@ export class EditorComponent implements OnInit {
   }
 
   private createForm() {
-    this.form = this.builder.group({});
+    this.form = this.builder.group({}, { validators: this.formValidator });
     this.fields.map((field: FieldInfo) => this.form.addControl(field.name, this.createControl(field)));
   }
 

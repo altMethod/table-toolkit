@@ -1,0 +1,52 @@
+<!-- If custom pipe is set -->
+<ng-container *ngIf='field.pipe'>
+  <div class="table-base-cell">{{field.pipe.transform(value) | na:field.naLabel}}</div>
+</ng-container>
+
+<ng-container *ngIf='!field.pipe'>
+  <ng-container [ngSwitch]='field.type'>
+
+    <div class="table-base-cell" *ngSwitchCase="'date'">{{value | date:field.dateFormat | na:field.naLabel}}</div>
+
+    <div class="table-base-cell" *ngSwitchCase="'dateRange'">{{value | date:field.dateFormat | na:field.naLabel}}</div>
+
+    <div class="table-base-cell" *ngSwitchCase="'select'">
+      {{getValueFromOptions()}}
+    </div>
+
+    <div class="table-base-cell" *ngSwitchCase="'radioGroup'">
+      {{getValueFromOptions()}}
+    </div>
+
+    <ng-container *ngSwitchCase="'checkbox'">
+      <div class="table-base-cell" *ngIf='value === true'>{{field.checkboxTrueLabel | na:field.naLabel}}</div>
+      <div class="table-base-cell" *ngIf='value === false'>{{field.checkboxFalseLabel | na:field.naLabel}}</div>
+    </ng-container>
+
+    <div class="table-base-cell" *ngSwitchCase="'number'">{{value | number:getDigitInfo(field) | na:field.naLabel}}</div>
+
+    <div class="table-base-cell" *ngSwitchCase="'multiple'">
+      {{getMultipleSelectValue() | na:field.naLabel}}
+    </div>
+
+    <div class="table-base-cell" *ngSwitchCase="'dynamic'">
+      <div *ngFor='let item of value'>
+        <ng-container *ngFor='let innerField of field.innerFields; let index = index' [ngSwitch]='innerField.type'>
+          <span *ngSwitchCase="'date'">
+            {{item[innerField.name] | date:innerField.dateFormat | na:innerField.naLabel}}
+            <span *ngIf='index < field.innerFields.length - 1'> : </span>
+          </span>
+
+          <span *ngSwitchCase="'text'">
+            {{item[innerField.name] }}
+            <span *ngIf='index < field.innerFields.length - 1'> : </span>
+          </span>
+        </ng-container>
+        <br />
+      </div>
+    </div>
+
+    <div class="table-base-cell" *ngSwitchDefault>{{value | na:field.naLabel}}</div>
+
+  </ng-container>
+</ng-container>

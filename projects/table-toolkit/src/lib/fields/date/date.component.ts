@@ -1,7 +1,8 @@
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { FieldBase } from '../base-field';
 import { MatDatepickerInputEvent } from '@angular/material';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DateFieldInfo } from '../../field-info';
 
 @Component({
   selector: 'bp-table-base-date-field',
@@ -18,18 +19,11 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class DateComponent extends FieldBase {
   constructor() { super(); }
 
-  change(newValue: MatDatepickerInputEvent<Date>): void {
-    this.innerValue = this.formatDate(newValue.value, 'd/m/y');
-    this.onChangedCallback(this.innerValue);
-  }
+  @Input()
+  field: DateFieldInfo;
 
-  private formatDate(date: Date, format: string): string {
-    const day = date.getDate().toString();
-    const month = (date.getMonth() + 1).toString();
-    const year = date.getFullYear().toString();
-    format.replace('d', day);
-    format.replace('m', month);
-    format.replace('y', year);
-    return format;
+  change(newValue: MatDatepickerInputEvent<Date>): void {
+    this.innerValue = newValue.value;
+    this.onChangeCallbackWrapper(this.field.showOperator);
   }
 }

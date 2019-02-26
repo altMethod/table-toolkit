@@ -1,0 +1,15 @@
+<mat-form-field floatLabel='always' *ngIf='field.showOperator'>
+  <mat-select [(value)]='operator' (selectionChange)='operatorChanged()'>
+    <mat-option value='='>is</mat-option>
+    <mat-option value='!='>isn't</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field floatLabel='always'>
+  <input #input name="currentFilterValue" type="text" [placeholder]='field.label' matInput [matAutocomplete]='autocomplete'
+    [formControl]='control' [attr.disabled]='field.isReadOnly || disabled' />
+  <mat-autocomplete #autocomplete='matAutocomplete' (optionSelected)='optionSelected($event)'>
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      {{ option.label }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

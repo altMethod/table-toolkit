@@ -1,0 +1,25 @@
+<div class="table-base-container-field">
+
+  <ng-container *ngFor='let innerField of field.innerFields'>
+    <ng-container [ngSwitch]='innerField.type'>
+      <div class="table-base-container-field-item">
+
+        <bp-table-base-autocomplete-field *ngSwitchCase="'autocomplete'" [field]='innerField'></bp-table-base-autocomplete-field>
+
+        <bp-table-base-checkbox-field *ngSwitchCase="'checkbox'" [field]='innerField'></bp-table-base-checkbox-field>
+
+        <bp-table-base-date-field *ngSwitchCase="'date'" [field]='innerField'></bp-table-base-date-field>
+
+        <bp-table-base-number-field *ngSwitchCase="'number'" [field]='innerField'></bp-table-base-number-field>
+
+        <bp-table-base-select-field *ngSwitchCase="'select'" [field]='innerField'></bp-table-base-select-field>
+
+        <bp-table-base-text-field *ngSwitchCase="'text'" [field]='innerField'></bp-table-base-text-field>
+
+        <bp-table-base-multiple-field *ngSwitchCase="'multiple'" [field]='innerField'></bp-table-base-multiple-field>
+
+      </div>
+    </ng-container>
+  </ng-container>
+
+</div>

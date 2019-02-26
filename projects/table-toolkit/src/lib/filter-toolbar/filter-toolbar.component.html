@@ -2,28 +2,43 @@
   <div class="filter-toolbar-item" *ngFor='let field of appliedFilters'>
     <ng-container [ngSwitch]='field.type'>
 
-      <app-table-base-number-field [formControlName]='field.name' *ngSwitchCase="'number'" [field]='field'></app-table-base-number-field>
+      <bp-table-base-number-field [formControlName]='field.name' *ngSwitchCase="'number'" [field]='field'></bp-table-base-number-field>
 
-      <app-table-base-text-field [formControlName]='field.name' *ngSwitchCase="'text'" [field]='field'></app-table-base-text-field>
+      <bp-table-base-text-field [formControlName]='field.name' *ngSwitchCase="'text'" [field]='field'></bp-table-base-text-field>
 
-      <app-table-base-select-field [formControlName]='field.name' *ngSwitchCase="'select'" [field]='field'></app-table-base-select-field>
+      <bp-table-base-select-field [formControlName]='field.name' *ngSwitchCase="'select'" [field]='field'></bp-table-base-select-field>
 
-      <app-table-base-date-field [formControlName]='field.name' *ngSwitchCase="'date'" [field]='field'></app-table-base-date-field>
+      <bp-table-base-date-field [formControlName]='field.name' *ngSwitchCase="'date'" [field]='field'></bp-table-base-date-field>
 
-      <app-table-base-date-range-field [formControlName]='field.name' *ngSwitchCase="'dateRange'" [field]='field'></app-table-base-date-range-field>
+      <bp-table-base-checkbox-field [formControlName]='field.name' *ngSwitchCase="'checkbox'" [field]='field'>
+
+      </bp-table-base-checkbox-field>
+
+      <bp-table-base-multiple-field [formControlName]='field.name' *ngSwitchCase="'multiple'" [field]='field'>
+
+      </bp-table-base-multiple-field>
 
     </ng-container>
     <a class="filter-toolbar-remove" (click)='removeFilter(field)'>
-      <i class="fa fa-times"></i>
+      <mat-icon class="mat-warn">delete</mat-icon>
     </a>
+    <div class="next-arrow">
+      <mat-icon class="mat-accent">arrow_right_alt</mat-icon>
+    </div>
   </div>
-  <div class="filter-toolbar-button-container">
-    <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">Add Filter</button>
+  <div class="filter-toolbar-button-container" [ngClass]="{'use-icons': useIcons}">
+    <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">
+      <span *ngIf='!useIcons'>{{addFilterLabel ? addFilterLabel : 'Add Filter'}}</span>
+      <mat-icon *ngIf='useIcons'>add</mat-icon>
+    </button>
     <mat-menu #menu="matMenu">
       <button (click)='addFilter(field)' mat-menu-item *ngFor='let field of remainingFilters'>{{field.label}}</button>
     </mat-menu>
   </div>
-  <div class="filter-toolbar-button-container">
-    <button mat-raised-button color='primary' (click)='onFilter()'>Filter</button>
+  <div class="filter-toolbar-button-container" [ngClass]="{'use-icons': useIcons}">
+    <button mat-raised-button color='primary' (click)='onFilter()'>
+      <span *ngIf='!useIcons'>{{filterLabel ? filterLabel : 'Filter'}}</span>
+      <mat-icon *ngIf='useIcons'>search</mat-icon>
+    </button>
   </div>
 </div>

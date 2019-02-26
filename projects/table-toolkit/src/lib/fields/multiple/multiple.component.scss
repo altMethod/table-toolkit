@@ -1,0 +1,50 @@
+:host {
+  display: flex;
+  margin: 0;
+  align-items: center;
+  padding-top: 0;
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.selected-value {
+  height: 22px;
+  margin: 2px;
+  font-size: 12px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+  color: black;
+  cursor: pointer;
+}
+
+.input-box {
+  flex-grow: 1;
+  min-width: 60px;
+}
+
+.label-box {
+  flex-grow: 1;
+  margin-top: 10px;
+  margin-right: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 65%;
+
+  & .mat-chip {
+    cursor: pointer !important;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+}
+
+.multi-select-operator {
+  width: 44px !important;
+  margin-right: 2px;
+}
+
+.multi-select-operator * {
+  width: 44px !important;
+}

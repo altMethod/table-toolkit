@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FieldInfo } from '../field-info';
+import { FieldInfo, ColumnType } from '../field-info';
 import { TableBaseFilter } from '../table.model';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-table-base-filter-toolbar',
+  selector: 'bp-table-base-filter-toolbar',
   templateUrl: './filter-toolbar.component.html',
   styleUrls: ['./filter-toolbar.component.scss']
 })
@@ -14,6 +14,15 @@ export class TableBaseFilterToolbarComponent implements OnInit {
 
   @Input()
   filter: TableBaseFilter;
+
+  @Input()
+  addFilterLabel: string;
+
+  @Input()
+  filterLabel: string;
+
+  @Input()
+  useIcons: boolean;
 
   @Input()
   fields: Array<FieldInfo>;
@@ -29,11 +38,24 @@ export class TableBaseFilterToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.localFilter = { ...this.filter };
-    this.remainingFilters = [...this.fields];
+    this.remainingFilters = this.fields.reduce((acc: Array<FieldInfo>, current: FieldInfo) => {
+      if (current.type === ColumnType.container) {
+        return acc.concat(current.innerFields);
+      }
+
+      if (current.type !== ColumnType.dynamic) {
+        return acc.concat(current);
+      }
+
+      return acc;
+    }, []);
   }
 
   onFilter() {
-    this.filterData.emit(this.form.value);
+    this.filterData.emit({
+      ...this.localFilter,
+      ...this.form.value
+    });
   }
 
   addFilter(filter: FieldInfo) {

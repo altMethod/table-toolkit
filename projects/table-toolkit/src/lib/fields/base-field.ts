@@ -1,25 +1,33 @@
 import { ControlValueAccessor } from '@angular/forms';
-import { Input } from '@angular/core';
-import { FieldInfo } from '../field-info';
 
 export class FieldBase implements ControlValueAccessor {
   constructor() { }
 
-  @Input()
-  field: FieldInfo;
-
   protected onChangedCallback: (_: any) => void;
   protected onTouchedCallback: (_: any) => void;
+
+  operator = '=';
   disabled = false;
   innerValue: any;
 
-  // ControlValueAccessor
-  change(newValue: any): void {
-    this.onChangedCallback(newValue);
-    this.innerValue = newValue;
+  onChangeCallbackWrapper(showOperator = false) {
+    if (showOperator) {
+      this.onChangedCallback({
+        value: this.innerValue,
+        operator: this.operator
+      });
+    } else {
+      this.onChangedCallback(this.innerValue);
+    }
   }
+
+  // ControlValueAccessor
   writeValue(incommingValue: any) { this.innerValue = incommingValue; }
   registerOnChange(fn: any): void { this.onChangedCallback = fn; }
   registerOnTouched(fn: any): void { this.onTouchedCallback = fn; }
   setDisabledState(isDisabled: boolean): void { this.disabled = isDisabled; }
+  change(newValue: any): void {
+    this.innerValue = newValue;
+    this.onChangedCallback(newValue);
+  }
 }

@@ -1,0 +1,77 @@
+:host {
+  padding-top: 16px;
+  width: 100%;
+}
+
+.table-base-dynamic-field-container {
+  width: 100%;
+}
+
+.table-base-dynamic-field-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.table-base-dynamic-field-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-base-dynamic-field-row {
+  display: flex;
+
+  &>.fields {
+    flex-grow: 1;
+    display: flex;
+
+    &>.item {
+      margin-right: 6px;
+      flex: 1;
+    }
+  }
+}
+
+.add-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  padding: 4px;
+  border-radius: 16px;
+  margin-right: 6px;
+  color: white;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.delete-button {
+  width: 24px;
+  color: red;
+  margin-right: 10px;
+  padding-top: 22px;
+
+  &-icon:hover {
+    cursor: pointer;
+  }
+}
+
+.form-array-container {
+  margin-top: 6px;
+}
+
+.dynamic-input-error {
+  text-align: left;
+  color: #f44336;
+  font-size: 12px;
+  margin-top: -20px;
+}
