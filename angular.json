@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "browsepedia-table-toolkit": {
+    "browsepedia-table-toolkit-demo": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/browsepedia-table-toolkit",
+            "outputPath": "dist/browsepedia-table-toolkit-demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -53,18 +53,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "browsepedia-table-toolkit:build"
+            "browserTarget": "browsepedia-table-toolkit-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "browsepedia-table-toolkit:build:production"
+              "browserTarget": "browsepedia-table-toolkit-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "browsepedia-table-toolkit:build"
+            "browserTarget": "browsepedia-table-toolkit-demo:build"
           }
         },
         "test": {
@@ -98,7 +98,7 @@
         }
       }
     },
-    "browsepedia-table-toolkit-e2e": {
+    "browsepedia-table-toolkit-demo-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -107,11 +107,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "browsepedia-table-toolkit:serve"
+            "devServerTarget": "browsepedia-table-toolkit-demo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "browsepedia-table-toolkit:serve:production"
+              "devServerTarget": "browsepedia-table-toolkit-demo:serve:production"
             }
           }
         },
@@ -167,5 +167,5 @@
       }
     }
   },
-  "defaultProject": "browsepedia-table-toolkit"
+  "defaultProject": "browsepedia-table-toolkit-demo"
 }

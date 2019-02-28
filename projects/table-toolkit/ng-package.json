@@ -3,5 +3,9 @@
   "dest": "../../dist/table-toolkit",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "tslib",
+    "angular"
+  ]
 }
