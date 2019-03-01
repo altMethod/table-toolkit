@@ -37,4 +37,4 @@ imports: [
  You now have access to all the components that this library exposes
  
  
- Please refer to the [documentation](https://github.com/browsepedia/table-toolkit/wiki/Browsepedia-Table-Toolkit-Wiki) to see how to use the components that this library offers.
+ Please refer to the [documentation](https://github.com/browsepedia/table-toolkit/wiki) to see how to use the components that this library offers.
