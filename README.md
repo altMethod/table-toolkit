@@ -1,12 +1,14 @@
 # Browsepedia Angular Table Toolkit (alpha)
 A set of Angular 7 components built with **Angular Material** with the purpose of displaying and filtering tables.
+
+Demo project [here](https://github.com/browsepedia/table-toolkit-demo)
 ### 1. Installation
 The npm Package
 ``` npm
 npm install --save browsepedia-table-toolkit
 ```
 
-Import an Angular Material theme into your styles.css file (example bellow)
+### 2. Import an Angular Material theme into your styles.css file (example bellow)
 ``` css
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 ```
@@ -24,7 +26,7 @@ Please note that the **browsepedia-table-toolkit** installs the following packet
 "@angular/material": "^7.3.2"
 ```
 
-### 2. Import the TableToolkitModule
+### 3. Import the TableToolkitModule
 In your app.module.ts (or, if following this pattern, your shared.module.ts - in this case remember to also export it)
 ```ts
 imports: [
