@@ -5,7 +5,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { FieldInfo, DynamicFieldInfo } from '../../field-info';
 
 @Component({
-  selector: 'bp-table-base-dynamic-field',
+  selector: 'bp-dynamic-field',
   templateUrl: './dynamic.component.html',
   styleUrls: ['./dynamic.component.scss'],
   providers: [

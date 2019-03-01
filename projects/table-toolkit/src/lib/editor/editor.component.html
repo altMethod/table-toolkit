@@ -1,70 +1,63 @@
-<div class="table-base-editor-container" [formGroup]='form'>
+<div class="editor-container" [formGroup]='form'>
   <div class="flex-column flex-grow">
-    <div class="table-base-editor-item" *ngFor='let field of fields'>
+    <div class="editor-item" *ngFor='let field of fields'>
       <ng-container *ngIf='!field.hideInEditor'>
         <ng-container [ngSwitch]='field.type'>
 
-          <div class="table-base-editor-field-container">
+          <div class="editor-field-container">
 
-            <bp-table-base-autocomplete-field class="field" [formControlName]='field.name' *ngSwitchCase="'autocomplete'"
-              [field]='field'>
+            <bp-autocomplete-field class="field" [formControlName]='field.name' *ngSwitchCase="'autocomplete'" [field]='field'>
 
-            </bp-table-base-autocomplete-field>
+            </bp-autocomplete-field>
 
-            <bp-table-base-checkbox-field class="field" [formControlName]='field.name' *ngSwitchCase="'checkbox'"
-              [field]='field'>
+            <bp-checkbox-field class="field" [formControlName]='field.name' *ngSwitchCase="'checkbox'" [field]='field'>
 
-            </bp-table-base-checkbox-field>
+            </bp-checkbox-field>
 
-            <bp-table-base-container-field class="field" [formControlName]='field.name' *ngSwitchCase="'container'"
-              [field]='field'>
+            <bp-container-field class="field" [formControlName]='field.name' *ngSwitchCase="'container'" [field]='field'>
 
-            </bp-table-base-container-field>
+            </bp-container-field>
 
-            <bp-table-base-date-field class="field" [formControlName]='field.name' *ngSwitchCase="'date'" [field]='field'>
+            <bp-date-field class="field" [formControlName]='field.name' *ngSwitchCase="'date'" [field]='field'>
 
-            </bp-table-base-date-field>
+            </bp-date-field>
 
-            <bp-table-base-date-range-field class="field" [formControlName]='field.name' *ngSwitchCase="'dateRange'"
-              [field]='field'>
+            <bp-date-range-field class="field" [formControlName]='field.name' *ngSwitchCase="'dateRange'" [field]='field'>
 
-            </bp-table-base-date-range-field>
+            </bp-date-range-field>
 
-            <bp-table-base-dynamic-field class="field" [formControlName]='field.name' *ngSwitchCase="'dynamic'"
-              [field]='field'>
+            <bp-dynamic-field class="field" [formControlName]='field.name' *ngSwitchCase="'dynamic'" [field]='field'>
 
-            </bp-table-base-dynamic-field>
+            </bp-dynamic-field>
 
-            <bp-table-base-multiple-field class="field" [formControlName]='field.name' *ngSwitchCase="'multiple'"
-              [field]='field'>
+            <bp-multiple-field class="field" [formControlName]='field.name' *ngSwitchCase="'multiple'" [field]='field'>
 
-            </bp-table-base-multiple-field>
+            </bp-multiple-field>
 
-            <bp-table-base-number-field class="field" [formControlName]='field.name' *ngSwitchCase="'number'" [field]='field'>
+            <bp-number-field class="field" [formControlName]='field.name' *ngSwitchCase="'number'" [field]='field'>
 
-            </bp-table-base-number-field>
+            </bp-number-field>
 
-            <bp-table-base-radio-group class="field" [formControlName]='field.name' *ngSwitchCase="'radioGroup'"
-              [field]='field'>
+            <bp-radio-group class="field" [formControlName]='field.name' *ngSwitchCase="'radioGroup'" [field]='field'>
 
-            </bp-table-base-radio-group>
+            </bp-radio-group>
 
-            <bp-table-base-select-field class="field" [formControlName]='field.name' *ngSwitchCase="'select'" [field]='field'>
+            <bp-select-field class="field" [formControlName]='field.name' *ngSwitchCase="'select'" [field]='field'>
 
-            </bp-table-base-select-field>
+            </bp-select-field>
 
-            <bp-table-base-text-field class="field" [formControlName]='field.name' *ngSwitchCase="'text'" [field]='field'>
+            <bp-text-field class="field" [formControlName]='field.name' *ngSwitchCase="'text'" [field]='field'>
 
-            </bp-table-base-text-field>
+            </bp-text-field>
 
-            <div class="table-base-editor-field-error" *ngFor='let error of form.get(field.name).errors'>
+            <div class="editor-field-error" *ngFor='let error of form.get(field.name).errors'>
               {{error}}
             </div>
 
           </div>
 
-          <div class="table-base-editor-errors">
-            <div class="table-base-editor-error" *ngFor='let error of form.errors'>
+          <div class="editor-errors">
+            <div class="editor-error" *ngFor='let error of form.errors'>
               {{error}}
             </div>
           </div>
@@ -72,7 +65,7 @@
       </ng-container>
     </div>
   </div>
-  <div class="table-base-editor-footer">
+  <div class="editor-footer">
     <button mat-button color='warn' (click)='cancel.emit()'>{{cancelLabel ? cancelLabel : 'Cancel'}}</button>
     <button mat-raised-button color='primary' (click)='save.emit(form.value)'>{{saveLabel ? saveLabel : 'Save'}}</button>
   </div>

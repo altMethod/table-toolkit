@@ -4,25 +4,16 @@ import { TableBaseFilter } from '../table.model';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'bp-table-base-filter-toolbar',
+  selector: 'bp-filter-toolbar',
   templateUrl: './filter-toolbar.component.html',
   styleUrls: ['./filter-toolbar.component.scss']
 })
-export class TableBaseFilterToolbarComponent implements OnInit {
+export class FilterToolbarComponent implements OnInit {
 
   constructor() { }
 
   @Input()
   filter: TableBaseFilter;
-
-  @Input()
-  addFilterLabel: string;
-
-  @Input()
-  filterLabel: string;
-
-  @Input()
-  useIcons: boolean;
 
   @Input()
   fields: Array<FieldInfo>;

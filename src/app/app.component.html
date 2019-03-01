@@ -1,8 +1,8 @@
-<bp-table-base-filter-toolbar [fields]='config.fields' [useIcons]='true'>
+<bp-filter-toolbar [fields]='config.fields'>
 
-</bp-table-base-filter-toolbar>
+</bp-filter-toolbar>
 <hr />
 
-<bp-table-base [config]='config' [data]='data' (edit)='edit($event)'>
+<bp-table [config]='config' [data]='data' (edit)='edit($event)' (create)='create($event)'>
 
-</bp-table-base>
+</bp-table>

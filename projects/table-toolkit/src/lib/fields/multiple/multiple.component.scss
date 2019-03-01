@@ -22,17 +22,15 @@
 }
 
 .input-box {
-  flex-grow: 1;
-  min-width: 60px;
+  min-width: 120px;
+  flex: 1 1 auto;
 }
 
 .label-box {
-  flex-grow: 1;
-  margin-top: 10px;
-  margin-right: 4px;
+  padding-right: 4px;
+  padding-left: 4px;
   display: flex;
-  flex-wrap: wrap;
-  min-width: 65%;
+  flex: 0 0 auto;
 
   & .mat-chip {
     cursor: pointer !important;

@@ -7,7 +7,7 @@ import { startWith, map } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 @Component({
-  selector: 'bp-table-base-autocomplete-field',
+  selector: 'bp-autocomplete-field',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],
   providers: [

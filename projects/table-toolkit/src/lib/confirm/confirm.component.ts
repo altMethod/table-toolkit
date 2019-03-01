@@ -7,9 +7,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.scss']
 })
-export class TableBaseModalConfirmComponent {
+export class ModalConfirmComponent {
   constructor(
-    public dialogRef: MatDialogRef<TableBaseModalConfirmComponent>,
+    public dialogRef: MatDialogRef<ModalConfirmComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ModalConfirmModel) { }
 }
 

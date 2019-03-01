@@ -3,6 +3,7 @@ import { config, data, User } from './table.config';
 import { TableBaseConfig, TableBaseResponse } from 'table-toolkit';
 import { MatDialog } from '@angular/material';
 import { FormComponent } from './form/form.component';
+import { ModalConfirmComponent } from 'projects/table-toolkit/src/lib/confirm/confirm.component';
 
 @Component({
   selector: 'app-root',
@@ -24,12 +25,31 @@ export class AppComponent {
   config: TableBaseConfig;
   data: TableBaseResponse;
 
+  delete() {
+    const modalData = {
+      title: 'Confirm',
+      message: 'Are you sure you want to delete?',
+      yesLabel: 'Of course',
+      noLabel: 'Nah'
+    };
+    this.dialog.open(ModalConfirmComponent, {
+      data: modalData,
+      width: '320px',
+      height: '320px'
+    }).afterClosed().subscribe((canClose: boolean) => console.log(canClose));
+  }
+
   edit(user: User) {
     this.dialog.open(FormComponent, {
       width: '520px',
-      height: '620px',
+      height: '720px',
       data: {
-        model: user,
+        model:
+        {
+          ...user,
+          departments: [...user.departments],
+          history: [...user.history]
+        },
         config: this.config
       }
     }).afterClosed().subscribe((updated: User) => {
@@ -41,5 +61,16 @@ export class AppComponent {
         }
       }
     });
+  }
+
+  create() {
+    this.dialog.open(FormComponent, {
+      width: '520px',
+      height: '720px',
+      data: {
+        model: {},
+        config: this.config
+      }
+    }).afterClosed().subscribe((user: User) => user ? this.data.items.push(user) : null);
   }
 }

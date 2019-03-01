@@ -4,7 +4,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TextFieldInfo } from '../../field-info';
 
 @Component({
-  selector: 'bp-table-base-text-field',
+  selector: 'bp-text-field',
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.scss'],
   providers: [
@@ -20,6 +20,10 @@ export class TextFieldComponent extends FieldBase {
 
   @Input()
   field: TextFieldInfo;
+
+  writeValue(incommingValue: string) {
+    this.innerValue = incommingValue ? incommingValue : '';
+  }
 
   change(newValue: string): void {
     this.innerValue = newValue;

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { TableBaseModule } from 'table-toolkit';
+import { TableToolkitModule } from 'table-toolkit';
 import { MatDialogModule } from '@angular/material';
 import { FormComponent } from './form/form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    TableBaseModule
+    TableToolkitModule
   ],
   providers: [],
   bootstrap: [AppComponent],

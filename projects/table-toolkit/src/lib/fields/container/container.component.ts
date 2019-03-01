@@ -4,7 +4,7 @@ import { FieldBase } from '../base-field';
 import { FieldInfo, ContainerFieldInfo } from '../../field-info';
 
 @Component({
-  selector: 'bp-table-base-container-field',
+  selector: 'bp-container-field',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss'],
   providers: [

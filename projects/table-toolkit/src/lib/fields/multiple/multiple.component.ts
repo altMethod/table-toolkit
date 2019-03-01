@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { isArray } from 'util';
 
 @Component({
-  selector: 'bp-table-base-multiple-field',
+  selector: 'bp-multiple-field',
   templateUrl: './multiple.component.html',
   styleUrls: ['./multiple.component.scss'],
   providers: [
@@ -36,14 +36,6 @@ export class MultipleComponent extends FieldBase implements OnInit {
 
   ngOnInit() {
     this.options = [...this.field.options];
-
-    this.filteredOptions =
-      merge(
-        of(this.filter('')),
-        this.control.valueChanges.pipe(
-          map((val: any) => this.filter(val))
-        )
-      );
   }
 
   writeValue(newValue: Array<any> | any) {
@@ -65,31 +57,40 @@ export class MultipleComponent extends FieldBase implements OnInit {
         return acc;
       }, []);
     }
+
+    this.filteredOptions = merge(
+      of(this.filter('')),
+      this.control.valueChanges.pipe(
+        map((val: any) => this.filter(val))
+      )
+    );
   }
 
   filter(value: string | SelectModel): Array<SelectModel> {
-    if (value) {
-      const valueToCompare = (value !== Object(value) ? (value as string) : (value as SelectModel).label).toLowerCase();
-      const toReturn = (this.options as Array<SelectModel>)
-        .filter(option => {
-          const contains = option.label.toLowerCase().indexOf(valueToCompare) > -1;
-          const exists = this.innerValue.find(e => e.toLowerCase() === valueToCompare) === null;
-          return contains && !exists;
-        }).sort();
-      return toReturn;
-    }
-    return this.options.sort();
+    const valueToCompare = (value !== Object(value) ? (value as string) : (value as SelectModel).label).toLowerCase();
+    const toReturn = (this.options as Array<SelectModel>)
+      .filter(option => {
+        const contains = option.label.toLowerCase().indexOf(valueToCompare) > -1;
+        const exists = this.innerValue.findIndex(e => e === option.value) > -1;
+        return contains && !exists;
+      }).sort();
+    return toReturn;
   }
 
   removeSelected(label: any) {
     const option = this.field.options.find(e => e.label === label);
 
-    const index = this.innerValue.indexOf(option.value);
-    this.innerValue.splice(index, 1);
-    this.innerLabels.splice(index, 1);
-    this.options.push(option);
+    const valueIndex = this.innerValue.indexOf(option.value);
+    this.innerValue.splice(valueIndex, 1);
+    const labelIndex = this.innerLabels.indexOf(option.label);
+    this.innerLabels.splice(labelIndex, 1);
 
-    this.control.setValue('');
+    if (this.control.value) {
+      this.control.setValue('');
+    } else {
+      this.control.setValue('#');
+      this.control.setValue('');
+    }
     this.onChangeCallbackWrapper(this.field.showOperator);
   }
 

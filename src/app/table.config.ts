@@ -1,11 +1,8 @@
 import {
   TableBaseConfig, NumberFieldInfo, TextFieldInfo,
-  SelectFieldInfo, SelectModel, DateFieldInfo
+  SelectFieldInfo, SelectModel, DateFieldInfo, MultipleFieldInfo,
+  CheckboxFieldInfo, RadioGroupFieldInfo, ContainerFieldInfo, DynamicFieldInfo
 } from 'table-toolkit';
-import {
-  MultipleFieldInfo, CheckboxFieldInfo, RadioGroupFieldInfo,
-  ContainerFieldInfo, DynamicFieldInfo, FieldInfo
-} from 'projects/table-toolkit/src';
 
 export const config: TableBaseConfig = {
   fields: [
@@ -25,8 +22,8 @@ export const config: TableBaseConfig = {
         new SelectModel('Accounting', 'ACC')
       ]).withNaLabel('none'),
     new CheckboxFieldInfo('Pension', 'pension')
-      .withCheckboxTrueLabel('Pensioneer')
-      .withCheckboxFalseLabel('Employee'),
+      .withTrueLabel('Pensioneer')
+      .withfalseLabel('Employee'),
     new RadioGroupFieldInfo('Title', 'title')
       .withOptions([
         new SelectModel('Mr.', 'mr'),
@@ -45,13 +42,14 @@ export const config: TableBaseConfig = {
       ])
   ],
   showActionsColumn: true,
-  showEdit: true
+  showEdit: true,
+  showAdd: true
 };
 
 export const data: Array<User> = [
   {
     id: 1,
-    name: 'Vlad Gheorghita',
+    name: 'John Doe',
     age: 25,
     gender: 'MALE',
     departments: [],
@@ -67,7 +65,7 @@ export const data: Array<User> = [
   },
   {
     id: 2,
-    name: 'Roxana Stanescu',
+    name: 'Jane Doe',
     age: 31,
     gender: 'FEMALE',
     departments: ['it', 'hr'],

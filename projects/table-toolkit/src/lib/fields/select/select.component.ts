@@ -5,7 +5,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SelectFieldInfo } from '../../field-info';
 
 @Component({
-  selector: 'bp-table-base-select-field',
+  selector: 'bp-select-field',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   providers: [

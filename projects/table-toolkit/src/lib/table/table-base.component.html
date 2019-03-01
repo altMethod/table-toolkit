@@ -1,14 +1,14 @@
-<div class="table-base-container" *ngIf='config'>
+<div class="table-container" *ngIf='config'>
   <mat-table [dataSource]='dataSource' matSort (matSortChange)='changeSort($event)'>
     <ng-container *ngFor='let field of config.fields'>
 
       <ng-container *ngIf="field.type !== 'container' && !field.hideInTable" [matColumnDef]='field.name'>
         <mat-header-cell [style.min-width.px]='field.minWidth' mat-sort-header *matHeaderCellDef>
-          <div class="table-base-header-cell">{{field.label}}</div>
+          <div class="table-header-cell">{{field.label}}</div>
         </mat-header-cell>
 
-        <mat-cell [style.min-width.px]='field.minWidth' class="table-base-header-cell" *matCellDef='let element'>
-          <bp-table-base-cell [value]='element[field.name]' [field]='field'></bp-table-base-cell>
+        <mat-cell [style.min-width.px]='field.minWidth' class="table-header-cell" *matCellDef='let element'>
+          <bp-table-cell [value]='element[field.name]' [field]='field'></bp-table-cell>
         </mat-cell>
       </ng-container>
 
@@ -16,12 +16,12 @@
 
         <ng-container *ngFor='let innerField of field.innerFields' [matColumnDef]='innerField.name'>
           <mat-header-cell [style.min-width.px]='innerField.minWidth' mat-sort-header *matHeaderCellDef>
-            <div class="table-base-header-cell">{{innerField.label}}</div>
+            <div class="table-header-cell">{{innerField.label}}</div>
           </mat-header-cell>
 
-          <mat-cell [style.min-width.px]='innerField.minWidth' class="table-base-cell" *matCellDef='let element'>
-            <bp-table-base-cell *ngIf='field.flattened === true' [value]='element[innerField.name]' [field]='innerField'></bp-table-base-cell>
-            <bp-table-base-cell *ngIf='field.flattened === false' [value]=' element[field.name][innerField.name]' [field]='innerField'></bp-table-base-cell>
+          <mat-cell [style.min-width.px]='innerField.minWidth' class="table-cell" *matCellDef='let element'>
+            <bp-table-cell *ngIf='field.flattened === true' [value]='element[innerField.name]' [field]='innerField'></bp-table-cell>
+            <bp-table-cell *ngIf='field.flattened === false' [value]=' element[field.name][innerField.name]' [field]='innerField'></bp-table-cell>
           </mat-cell>
         </ng-container>
       </ng-container>
@@ -30,13 +30,13 @@
 
     <!-- Actions column -->
     <ng-container matColumnDef='actions' *ngIf='config.showActionsColumn'>
-      <mat-header-cell *matHeaderCellDef class="table-base-actions-header">
-        <div>Actions</div>
-        <button type="button" mat-button aria-hidden="true" *ngIf='config.showAdd' (click)='create.emit()'>
-          <i class=" fa fa-2x fa-plus"></i>
+      <mat-header-cell *matHeaderCellDef class="table-actions-header">
+        <div *ngIf='!config.showAdd'>Actions</div>
+        <button type="button" mat-raised-button color='accent' aria-hidden="true" *ngIf='config.showAdd' (click)='create.emit()'>
+          <mat-icon>add</mat-icon>
         </button>
       </mat-header-cell>
-      <mat-cell class="table-base-cell" *matCellDef='let element' class="table-base-actions-cell">
+      <mat-cell class="table-cell" *matCellDef='let element' class="table-actions-cell">
         <button mat-button color='accent' *ngIf='config.showEdit' (click)='edit.emit(element)'>
           <mat-icon>edit</mat-icon>
         </button>
@@ -47,7 +47,7 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-    <mat-row (dblclick)='dblClick.emit(row)' class="table-base-row" *matRowDef="let row; columns: columns;"></mat-row>
+    <mat-row (dblclick)='dblClick.emit(row)' class="table-row" *matRowDef="let row; columns: columns;"></mat-row>
   </mat-table>
   <mat-paginator *ngIf='config.showPaginator' [length]='data.count' [pageIndex]='data.page' [pageSize]='data.pageSize'
     [pageSizeOptions]='pageSizeOptions'></mat-paginator>

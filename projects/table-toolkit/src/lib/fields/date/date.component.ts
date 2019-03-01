@@ -5,7 +5,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DateFieldInfo } from '../../field-info';
 
 @Component({
-  selector: 'bp-table-base-date-field',
+  selector: 'bp-date-field',
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.scss'],
   providers: [

@@ -1,19 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { MatTableDataSource, PageEvent, Sort } from '@angular/material';
-import { TableBaseConfig, SortModel, TableBaseFilter, TableBaseResponse } from '../table.model';
+import { TableBaseConfig, SortModel, TableBaseResponse } from '../table.model';
 import { FieldInfo, ColumnType } from '../field-info';
 
 @Component({
-  selector: 'bp-table-base',
+  selector: 'bp-table',
   templateUrl: './table-base.component.html',
   styleUrls: ['./table-base.component.scss']
 })
-export class TableBaseComponent implements OnInit, OnChanges {
+export class TableComponent implements OnInit, OnChanges {
 
   constructor() { }
 
   @Input() data: TableBaseResponse;
-  @Input() filter: TableBaseFilter;
   @Input() config: TableBaseConfig;
 
   @Output() edit: EventEmitter<any> = new EventEmitter();

@@ -1,8 +1,13 @@
-.table-base {
+.table {
   &-actions-header {
 
     & div {
       width: 100%;
+    }
+
+    & button {
+      margin-left: auto;
+      margin-right: auto;
     }
 
     text-align: center;

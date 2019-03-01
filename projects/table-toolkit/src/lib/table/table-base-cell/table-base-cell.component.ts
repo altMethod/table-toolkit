@@ -3,11 +3,11 @@ import { FieldInfo, SelectFieldInfo, MultipleFieldInfo } from '../../field-info'
 import { SelectModel } from '../../field-info';
 
 @Component({
-  selector: 'bp-table-base-cell',
+  selector: 'bp-table-cell',
   templateUrl: './table-base-cell.component.html',
   styleUrls: ['./table-base-cell.component.scss']
 })
-export class TableBaseCellComponent {
+export class TableCellComponent {
 
   @Input()
   field: FieldInfo;

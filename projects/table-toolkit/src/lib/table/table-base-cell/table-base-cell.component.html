@@ -1,35 +1,35 @@
 <!-- If custom pipe is set -->
 <ng-container *ngIf='field.pipe'>
-  <div class="table-base-cell">{{field.pipe.transform(value) | na:field.naLabel}}</div>
+  <div class="table-cell">{{field.pipe.transform(value) | na:field.naLabel}}</div>
 </ng-container>
 
 <ng-container *ngIf='!field.pipe'>
   <ng-container [ngSwitch]='field.type'>
 
-    <div class="table-base-cell" *ngSwitchCase="'date'">{{value | date:field.dateFormat | na:field.naLabel}}</div>
+    <div class="table-cell" *ngSwitchCase="'date'">{{value | date:field.dateFormat | na:field.naLabel}}</div>
 
-    <div class="table-base-cell" *ngSwitchCase="'dateRange'">{{value | date:field.dateFormat | na:field.naLabel}}</div>
+    <div class="table-cell" *ngSwitchCase="'dateRange'">{{value | date:field.dateFormat | na:field.naLabel}}</div>
 
-    <div class="table-base-cell" *ngSwitchCase="'select'">
+    <div class="table-cell" *ngSwitchCase="'select'">
       {{getValueFromOptions()}}
     </div>
 
-    <div class="table-base-cell" *ngSwitchCase="'radioGroup'">
+    <div class="table-cell" *ngSwitchCase="'radioGroup'">
       {{getValueFromOptions()}}
     </div>
 
     <ng-container *ngSwitchCase="'checkbox'">
-      <div class="table-base-cell" *ngIf='value === true'>{{field.checkboxTrueLabel | na:field.naLabel}}</div>
-      <div class="table-base-cell" *ngIf='value === false'>{{field.checkboxFalseLabel | na:field.naLabel}}</div>
+      <div class="table-cell" *ngIf='value === true'>{{field.trueLabel | na:field.naLabel}}</div>
+      <div class="table-cell" *ngIf='value === false'>{{field.falseLabel | na:field.naLabel}}</div>
     </ng-container>
 
-    <div class="table-base-cell" *ngSwitchCase="'number'">{{value | number:getDigitInfo(field) | na:field.naLabel}}</div>
+    <div class="table-cell" *ngSwitchCase="'number'">{{value | number:getDigitInfo(field) | na:field.naLabel}}</div>
 
-    <div class="table-base-cell" *ngSwitchCase="'multiple'">
+    <div class="table-cell" *ngSwitchCase="'multiple'">
       {{getMultipleSelectValue() | na:field.naLabel}}
     </div>
 
-    <div class="table-base-cell" *ngSwitchCase="'dynamic'">
+    <div class="table-cell" *ngSwitchCase="'dynamic'">
       <div *ngFor='let item of value'>
         <ng-container *ngFor='let innerField of field.innerFields; let index = index' [ngSwitch]='innerField.type'>
           <span *ngSwitchCase="'date'">
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="table-base-cell" *ngSwitchDefault>{{value | na:field.naLabel}}</div>
+    <div class="table-cell" *ngSwitchDefault>{{value | na:field.naLabel}}</div>
 
   </ng-container>
 </ng-container>

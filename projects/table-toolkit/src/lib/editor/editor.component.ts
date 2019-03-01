@@ -3,7 +3,7 @@ import { FieldInfo } from '../field-info';
 import { FormGroup, FormControl, FormBuilder, AbstractControl, ValidatorFn } from '@angular/forms';
 
 @Component({
-  selector: 'bp-table-base-editor',
+  selector: 'bp-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })
@@ -32,8 +32,12 @@ export class EditorComponent implements OnInit {
   cancel: EventEmitter<void> = new EventEmitter();
 
   form: FormGroup = new FormGroup({});
+  innerModel = {};
 
   ngOnInit() {
+    if (this.model) {
+      this.innerModel = this.model;
+    }
     this.createForm();
   }
 
@@ -43,7 +47,7 @@ export class EditorComponent implements OnInit {
   }
 
   private createControl(field: FieldInfo): AbstractControl {
-    const value = this.model[field.name] !== null ? this.model[field.name] : field.defaultValue;
+    const value = this.innerModel[field.name] !== null ? this.innerModel[field.name] : field.defaultValue;
     const disabled = field.isReadOnly ? true : false;
     return new FormControl({ value, disabled }, field.validators);
   }

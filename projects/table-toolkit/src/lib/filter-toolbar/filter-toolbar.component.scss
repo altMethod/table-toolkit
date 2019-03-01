@@ -40,12 +40,13 @@
   &-button-container {
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 8px;
-    min-width: 100px;
+    margin-right: 16px;
+    display: flex;
 
     & button {
       width: 100%;
       font-weight: 600;
+      margin-right: 4px;
     }
   }
 

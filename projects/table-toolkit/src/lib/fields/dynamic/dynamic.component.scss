@@ -3,31 +3,37 @@
   width: 100%;
 }
 
-.table-base-dynamic-field-container {
-  width: 100%;
-}
+.table-dynamic-field {
+  &-container {
+    width: 100%;
+  }
 
-.table-base-dynamic-field-header {
-  display: flex;
-  justify-content: space-between;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 
-.table-base-dynamic-field-fields {
-  display: flex;
-  flex-direction: column;
-}
+    & .mat-raised-button {
+      line-height: 15px !important;
+    }
+  }
 
-.table-base-dynamic-field-row {
-  display: flex;
+  &-fields {
+    display: flex;
+    flex-direction: column;
+  }
 
-  &>.fields {
-    flex-grow: 1;
+  &-row {
     display: flex;
 
-    &>.item {
-      margin-right: 6px;
-      flex: 1;
+    &>.fields {
+      flex-grow: 1;
+      display: flex;
+
+      &>.item {
+        margin-right: 6px;
+        flex: 1;
+      }
     }
   }
 }
@@ -35,6 +41,7 @@
 .add-button {
   width: 32px;
   height: 32px;
+  min-width: 32px;
   border: none;
   padding: 4px;
   border-radius: 16px;

@@ -5,7 +5,7 @@ import { MatRadioChange } from '@angular/material';
 import { RadioGroupFieldInfo } from '../../field-info';
 
 @Component({
-  selector: 'bp-table-base-radio-group',
+  selector: 'bp-radio-group',
   templateUrl: './radio-group.component.html',
   styleUrls: ['./radio-group.component.scss'],
   providers: [

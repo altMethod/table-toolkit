@@ -4,7 +4,7 @@ import { FieldInfo, ColumnType, DateFieldInfo } from '../../field-info';
 import { FormGroup, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'bp-table-base-date-range-field',
+  selector: 'bp-date-range-field',
   templateUrl: './date-range.component.html',
   styleUrls: ['./date-range.component.scss'],
   providers: [
@@ -27,8 +27,8 @@ export class DateRangeComponent extends FieldBase {
   @Input()
   field: DateFieldInfo;
 
-  fromField = new FieldInfo('from', 'From', ColumnType.date);
-  toField = new FieldInfo('to', 'To', ColumnType.date);
+  fromField = new DateFieldInfo('from', 'From');
+  toField = new DateFieldInfo('to', 'To');
   form = new FormGroup({});
 
   writeValue(incommingValue: any) {

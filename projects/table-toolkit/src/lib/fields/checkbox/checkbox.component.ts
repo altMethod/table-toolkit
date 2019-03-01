@@ -5,7 +5,7 @@ import { MatCheckboxChange } from '@angular/material';
 import { CheckboxFieldInfo } from '../../field-info';
 
 @Component({
-  selector: 'bp-table-base-checkbox-field',
+  selector: 'bp-checkbox-field',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
   providers: [

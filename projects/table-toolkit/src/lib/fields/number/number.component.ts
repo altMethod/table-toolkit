@@ -4,7 +4,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NumberFieldInfo } from '../../field-info';
 
 @Component({
-  selector: 'bp-table-base-number-field',
+  selector: 'bp-number-field',
   templateUrl: './number.component.html',
   styleUrls: ['./number.component.scss'],
   providers: [

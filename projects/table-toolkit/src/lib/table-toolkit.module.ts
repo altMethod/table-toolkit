@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { TableBaseFilterToolbarComponent } from './filter-toolbar/filter-toolbar.component';
+import { FilterToolbarComponent } from './filter-toolbar/filter-toolbar.component';
 import {
   MatTableModule, MatPaginatorModule, MatInputModule,
   MatMenuModule, MatButtonModule, MatIconModule, MatSelectModule,
@@ -23,9 +23,9 @@ import {
   RadioGroupComponent
 } from './fields';
 import { EditorComponent } from './editor/editor.component';
-import { TableBaseModalConfirmComponent } from './confirm/confirm.component';
-import { TableBaseComponent } from './table/table-base.component';
-import { TableBaseCellComponent } from './table/table-base-cell/table-base-cell.component';
+import { ModalConfirmComponent } from './confirm/confirm.component';
+import { TableComponent } from './table/table-base.component';
+import { TableCellComponent } from './table/table-base-cell/table-base-cell.component';
 import { NotAvailablePipe } from './pipes';
 
 @NgModule({
@@ -53,10 +53,10 @@ import { NotAvailablePipe } from './pipes';
     MatNativeDateModule
   ],
   declarations: [
-    TableBaseComponent,
-    TableBaseFilterToolbarComponent,
+    TableComponent,
+    FilterToolbarComponent,
     EditorComponent,
-    TableBaseModalConfirmComponent,
+    ModalConfirmComponent,
     NotAvailablePipe,
 
     // fields
@@ -71,12 +71,12 @@ import { NotAvailablePipe } from './pipes';
     SelectComponent,
     TextFieldComponent,
     RadioGroupComponent,
-    TableBaseCellComponent
+    TableCellComponent
   ],
   exports: [
-    TableBaseComponent,
-    TableBaseFilterToolbarComponent,
-    TableBaseModalConfirmComponent,
+    TableComponent,
+    FilterToolbarComponent,
+    ModalConfirmComponent,
 
     // fields
     AutocompleteComponent,
@@ -92,6 +92,6 @@ import { NotAvailablePipe } from './pipes';
     TextFieldComponent,
     RadioGroupComponent
   ],
-  entryComponents: [TableBaseModalConfirmComponent]
+  entryComponents: [ModalConfirmComponent]
 })
-export class TableBaseModule { }
+export class TableToolkitModule { }

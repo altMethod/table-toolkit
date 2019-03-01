@@ -1,44 +1,40 @@
 <div class="filter-toolbar-container" [formGroup]='form'>
-  <div class="filter-toolbar-item" *ngFor='let field of appliedFilters'>
-    <ng-container [ngSwitch]='field.type'>
-
-      <bp-table-base-number-field [formControlName]='field.name' *ngSwitchCase="'number'" [field]='field'></bp-table-base-number-field>
-
-      <bp-table-base-text-field [formControlName]='field.name' *ngSwitchCase="'text'" [field]='field'></bp-table-base-text-field>
-
-      <bp-table-base-select-field [formControlName]='field.name' *ngSwitchCase="'select'" [field]='field'></bp-table-base-select-field>
-
-      <bp-table-base-date-field [formControlName]='field.name' *ngSwitchCase="'date'" [field]='field'></bp-table-base-date-field>
-
-      <bp-table-base-checkbox-field [formControlName]='field.name' *ngSwitchCase="'checkbox'" [field]='field'>
-
-      </bp-table-base-checkbox-field>
-
-      <bp-table-base-multiple-field [formControlName]='field.name' *ngSwitchCase="'multiple'" [field]='field'>
-
-      </bp-table-base-multiple-field>
-
-    </ng-container>
-    <a class="filter-toolbar-remove" (click)='removeFilter(field)'>
-      <mat-icon class="mat-warn">delete</mat-icon>
-    </a>
-    <div class="next-arrow">
-      <mat-icon class="mat-accent">arrow_right_alt</mat-icon>
-    </div>
-  </div>
-  <div class="filter-toolbar-button-container" [ngClass]="{'use-icons': useIcons}">
-    <button mat-raised-button color="accent" [matMenuTriggerFor]="menu">
-      <span *ngIf='!useIcons'>{{addFilterLabel ? addFilterLabel : 'Add Filter'}}</span>
-      <mat-icon *ngIf='useIcons'>add</mat-icon>
+  <div class="filter-toolbar-button-container use-icons">
+    <button mat-raised-button (click)='onFilter()'>
+      <mat-icon>search</mat-icon>
+    </button>
+    <button mat-raised-button color='primary' [matMenuTriggerFor]="menu">
+      <mat-icon>add</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button (click)='addFilter(field)' mat-menu-item *ngFor='let field of remainingFilters'>{{field.label}}</button>
     </mat-menu>
   </div>
-  <div class="filter-toolbar-button-container" [ngClass]="{'use-icons': useIcons}">
-    <button mat-raised-button color='primary' (click)='onFilter()'>
-      <span *ngIf='!useIcons'>{{filterLabel ? filterLabel : 'Filter'}}</span>
-      <mat-icon *ngIf='useIcons'>search</mat-icon>
-    </button>
+  <div class="filter-toolbar-item" *ngFor='let field of appliedFilters'>
+    <ng-container [ngSwitch]='field.type'>
+
+      <bp-number-field [formControlName]='field.name' *ngSwitchCase="'number'" [field]='field'></bp-number-field>
+
+      <bp-text-field [formControlName]='field.name' *ngSwitchCase="'text'" [field]='field'></bp-text-field>
+
+      <bp-select-field [formControlName]='field.name' *ngSwitchCase="'select'" [field]='field'></bp-select-field>
+
+      <bp-date-field [formControlName]='field.name' *ngSwitchCase="'date'" [field]='field'></bp-date-field>
+
+      <bp-checkbox-field [formControlName]='field.name' *ngSwitchCase="'checkbox'" [field]='field'>
+
+      </bp-checkbox-field>
+
+      <bp-multiple-field [formControlName]='field.name' *ngSwitchCase="'multiple'" [field]='field'>
+
+      </bp-multiple-field>
+
+    </ng-container>
+    <a class="filter-toolbar-remove" (click)='removeFilter(field)'>
+      <mat-icon class="mat-warn">clear</mat-icon>
+    </a>
+    <div class="next-arrow">
+      <mat-icon class="mat-accent">chevron_right</mat-icon>
+    </div>
   </div>
 </div>
