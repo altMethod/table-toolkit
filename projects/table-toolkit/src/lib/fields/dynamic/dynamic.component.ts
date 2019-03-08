@@ -1,5 +1,5 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { Component, Input, AfterContentInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, NgControl } from '@angular/forms';
 import { FieldBase } from '../base-field';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { FieldInfo, DynamicFieldInfo } from '../../field-info';
@@ -7,18 +7,11 @@ import { FieldInfo, DynamicFieldInfo } from '../../field-info';
 @Component({
   selector: 'bp-dynamic-field',
   templateUrl: './dynamic.component.html',
-  styleUrls: ['./dynamic.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DynamicComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./dynamic.component.scss']
 })
-export class DynamicComponent extends FieldBase {
-  constructor(private builder: FormBuilder) {
-    super();
+export class DynamicComponent extends FieldBase implements AfterContentInit {
+  constructor(private builder: FormBuilder, ctrl: NgControl) {
+    super(ctrl);
   }
 
   @Input()
@@ -27,7 +20,8 @@ export class DynamicComponent extends FieldBase {
   form: FormGroup;
   items: FormArray;
 
-  writeValue(value: Array<any>): void {
+  ngAfterContentInit() {
+    const value = this.ngControl.value;
     this.createForm();
     if (!value) {
       this.items.push(this.createNew());

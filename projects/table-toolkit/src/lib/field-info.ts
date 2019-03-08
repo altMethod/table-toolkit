@@ -120,8 +120,15 @@ export abstract class FieldInfo {
 }
 
 export class TextFieldInfo extends FieldInfo {
+  protected _defaultValue = '';
+
   constructor(label: string, name: string) {
     super(label, name, ColumnType.text);
+  }
+
+  required(): TextFieldInfo {
+    this._validators.push(Validators.required);
+    return this;
   }
 
   minlength(length: number): TextFieldInfo {
@@ -146,6 +153,8 @@ export class TextFieldInfo extends FieldInfo {
 }
 
 export class AutoCompleteFieldInfo extends FieldInfo {
+  protected _defaultValue = '';
+
   constructor(label: string, name: string) {
     super(label, name, ColumnType.autocomplete);
   }
@@ -230,6 +239,8 @@ export class SelectFieldInfo extends FieldInfo {
 }
 
 export class MultipleFieldInfo extends FieldInfo {
+  protected _defaultValue = [];
+
   constructor(label: string, name: string) {
     super(label, name, ColumnType.multiple);
   }
@@ -262,6 +273,8 @@ export class RadioGroupFieldInfo extends FieldInfo {
 }
 
 export class CheckboxFieldInfo extends FieldInfo {
+  protected _defaultValue = false;
+
   constructor(label: string, name: string) {
     super(label, name, ColumnType.checkbox);
   }
@@ -283,6 +296,8 @@ export class CheckboxFieldInfo extends FieldInfo {
 }
 
 export class DynamicFieldInfo extends FieldInfo {
+  protected _defaultValue = [];
+
   constructor(label: string, name: string) {
     super(label, name, ColumnType.dynamic);
   }
@@ -299,6 +314,8 @@ export class DynamicFieldInfo extends FieldInfo {
 }
 
 export class ContainerFieldInfo extends FieldInfo {
+  protected _defaultValue = {};
+
   constructor(label: string, name: string) {
     super(label, name, ColumnType.container);
   }

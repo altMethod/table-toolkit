@@ -1,22 +1,17 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FieldBase } from '../base-field';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TextFieldInfo } from '../../field-info';
+import { NgControl } from '@angular/forms';
 
 @Component({
   selector: 'bp-text-field',
   templateUrl: './text.component.html',
-  styleUrls: ['./text.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TextFieldComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./text.component.scss']
 })
-export class TextFieldComponent extends FieldBase {
-  constructor() { super(); }
+export class TextFieldComponent extends FieldBase implements OnInit {
+  constructor(private ctrl: NgControl) {
+    super(ctrl);
+  }
 
   @Input()
   field: TextFieldInfo;

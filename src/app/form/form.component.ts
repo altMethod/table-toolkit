@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { TableBaseConfig } from 'table-toolkit';
+import { TableBaseConfig } from 'projects/table-toolkit/src/';
 import { User } from '../table.config';
 
 @Component({

@@ -1,23 +1,18 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FieldBase } from '../base-field';
 import { MatSelectChange } from '@angular/material';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 import { SelectFieldInfo } from '../../field-info';
 
 @Component({
   selector: 'bp-select-field',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./select.component.scss']
 })
 export class SelectComponent extends FieldBase {
-  constructor() { super(); }
+  constructor(ctrl: NgControl) {
+    super(ctrl);
+  }
 
   @Input()
   field: SelectFieldInfo;

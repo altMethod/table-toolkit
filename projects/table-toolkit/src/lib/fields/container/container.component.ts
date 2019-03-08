@@ -1,44 +1,44 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, Input, AfterViewInit, AfterContentInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, NgControl } from '@angular/forms';
 import { FieldBase } from '../base-field';
 import { FieldInfo, ContainerFieldInfo } from '../../field-info';
+import { isNotNullOrUndefined } from '../../utils';
 
 @Component({
   selector: 'bp-container-field',
   templateUrl: './container.component.html',
-  styleUrls: ['./container.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ContainerComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./container.component.scss']
 })
-export class ContainerComponent extends FieldBase implements OnInit {
-  constructor() {
-    super();
+export class ContainerComponent extends FieldBase implements AfterContentInit {
+
+  constructor(ctrl: NgControl) {
+    super(ctrl);
   }
 
   @Input()
   field: ContainerFieldInfo;
 
-  form = new FormGroup({});
+  form: FormGroup;
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.createForm();
   }
 
-  write(incommingValue: any) {
-    this.form.setValue(incommingValue);
-  }
-
   private createForm() {
+    this.form = new FormGroup({});
     this.field.innerFields.map((field: FieldInfo) => {
-      const control = new FormControl('', Validators.compose(field.validators));
+      const disabled = field.isReadOnly ? true : false;
+      const controlValue = this.control.value;
+      const value = isNotNullOrUndefined(controlValue)
+        ? controlValue : field.defaultValue;
+      const control = new FormControl({ value, disabled }, Validators.compose(field.validators));
       this.form.addControl(field.name, control);
     });
 
-    this.form.valueChanges.subscribe(() => this.onChangedCallback(this.form.value));
+    this.form.valueChanges.subscribe(() => {
+      if (this.onChangedCallback) {
+        this.onChangedCallback(this.form.value);
+      }
+    });
   }
 }

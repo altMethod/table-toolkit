@@ -1,23 +1,34 @@
-import { ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, AbstractControl, NgControl } from '@angular/forms';
+import { OnInit } from '@angular/core';
 
-export class FieldBase implements ControlValueAccessor {
-  constructor() { }
+export class FieldBase implements ControlValueAccessor, OnInit {
+  constructor(ngControl: NgControl) {
+    ngControl.valueAccessor = this;
+    this.ngControl = ngControl;
+  }
 
   protected onChangedCallback: (_: any) => void;
   protected onTouchedCallback: (_: any) => void;
+  protected ngControl: NgControl;
+  protected control: AbstractControl;
 
   operator = '=';
   disabled = false;
   innerValue: any;
 
+  ngOnInit() {
+    this.control = this.ngControl.control;
+  }
+
   onChangeCallbackWrapper(showOperator = false) {
+    const value = this.control ? this.control.value : this.innerValue;
     if (showOperator) {
       this.onChangedCallback({
-        value: this.innerValue,
+        value,
         operator: this.operator
       });
     } else {
-      this.onChangedCallback(this.innerValue);
+      this.onChangedCallback(value);
     }
   }
 

@@ -1,5 +1,5 @@
-import { Component, forwardRef, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
+import { Component, forwardRef, Input, OnInit, ViewChild, ElementRef, Injector } from '@angular/core';
+import { NG_VALUE_ACCESSOR, FormControl, NgControl } from '@angular/forms';
 import { FieldBase } from '../base-field';
 import { MultipleFieldInfo } from '../../field-info';
 import { SelectModel } from '../../field-info';
@@ -10,17 +10,12 @@ import { isArray } from 'util';
 @Component({
   selector: 'bp-multiple-field',
   templateUrl: './multiple.component.html',
-  styleUrls: ['./multiple.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => MultipleComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./multiple.component.scss']
 })
 export class MultipleComponent extends FieldBase implements OnInit {
-  constructor() { super(); }
+  constructor(ctrl: NgControl) {
+    super(ctrl);
+  }
 
   @Input()
   field: MultipleFieldInfo;

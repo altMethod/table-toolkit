@@ -1,23 +1,19 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FieldBase } from '../base-field';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material';
 import { CheckboxFieldInfo } from '../../field-info';
 
 @Component({
   selector: 'bp-checkbox-field',
   templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CheckboxComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent extends FieldBase {
-  constructor() { super(); }
+
+  constructor(ctrl: NgControl) {
+    super(ctrl);
+  }
 
   @Input()
   field: CheckboxFieldInfo;

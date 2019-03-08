@@ -1,25 +1,28 @@
-<div class="container-field">
+<ng-container *ngIf='form'>
+  <div class="container-field">
+    <span class="container-field-label">{{field.label}}</span>
+    <div class="container-field-fields" [formGroup]='form'>
+      <ng-container *ngFor='let innerField of field.innerFields'>
+        <ng-container [ngSwitch]='innerField.type'>
+          <div class="container-field-item" [style.min-width.px]='innerField.minWidth'>
 
-  <ng-container *ngFor='let innerField of field.innerFields'>
-    <ng-container [ngSwitch]='innerField.type'>
-      <div class="container-field-item">
+            <bp-autocomplete-field [formControlName]='innerField.name' *ngSwitchCase="'autocomplete'" [field]='innerField'></bp-autocomplete-field>
 
-        <bp-autocomplete-field *ngSwitchCase="'autocomplete'" [field]='innerField'></bp-autocomplete-field>
+            <bp-checkbox-field [formControlName]='innerField.name' *ngSwitchCase="'checkbox'" [field]='innerField'></bp-checkbox-field>
 
-        <bp-checkbox-field *ngSwitchCase="'checkbox'" [field]='innerField'></bp-checkbox-field>
+            <bp-date-field [formControlName]='innerField.name' *ngSwitchCase="'date'" [field]='innerField'></bp-date-field>
 
-        <bp-date-field *ngSwitchCase="'date'" [field]='innerField'></bp-date-field>
+            <bp-number-field [formControlName]='innerField.name' *ngSwitchCase="'number'" [field]='innerField'></bp-number-field>
 
-        <bp-number-field *ngSwitchCase="'number'" [field]='innerField'></bp-number-field>
+            <bp-select-field [formControlName]='innerField.name' *ngSwitchCase="'select'" [field]='innerField'></bp-select-field>
 
-        <bp-select-field *ngSwitchCase="'select'" [field]='innerField'></bp-select-field>
+            <bp-text-field [formControlName]='innerField.name' *ngSwitchCase="'text'" [field]='innerField'></bp-text-field>
 
-        <bp-text-field *ngSwitchCase="'text'" [field]='innerField'></bp-text-field>
+            <bp-multiple-field [formControlName]='innerField.name' *ngSwitchCase="'multiple'" [field]='innerField'></bp-multiple-field>
 
-        <bp-multiple-field *ngSwitchCase="'multiple'" [field]='innerField'></bp-multiple-field>
-
-      </div>
-    </ng-container>
-  </ng-container>
-
-</div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

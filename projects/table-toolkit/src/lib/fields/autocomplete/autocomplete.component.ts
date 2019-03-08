@@ -1,5 +1,5 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormControl, NgControl } from '@angular/forms';
 import { FieldBase } from '../base-field';
 import { Observable } from 'rxjs';
 import { SelectModel, AutoCompleteFieldInfo } from '../../field-info';
@@ -9,22 +9,16 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 @Component({
   selector: 'bp-autocomplete-field',
   templateUrl: './autocomplete.component.html',
-  styleUrls: ['./autocomplete.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => AutocompleteComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./autocomplete.component.scss']
 })
 export class AutocompleteComponent extends FieldBase {
 
   @Input()
   field: AutoCompleteFieldInfo;
 
-  constructor() {
-    super();
+  constructor(private ctrl: NgControl) {
+    super(ctrl);
+
     this.filteredOptions = this.control.valueChanges
       .pipe(
         startWith(''),

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { config, data, User } from './table.config';
-import { TableBaseConfig, TableBaseResponse } from 'table-toolkit';
+import { TableBaseConfig, TableBaseResponse, ModalConfirmComponent } from 'projects/table-toolkit/src/';
 import { MatDialog } from '@angular/material';
 import { FormComponent } from './form/form.component';
-import { ModalConfirmComponent } from 'projects/table-toolkit/src/lib/confirm/confirm.component';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +24,7 @@ export class AppComponent {
   config: TableBaseConfig;
   data: TableBaseResponse;
 
-  delete() {
+  delete(user: User) {
     const modalData = {
       title: 'Confirm',
       message: 'Are you sure you want to delete?',
@@ -35,8 +34,16 @@ export class AppComponent {
     this.dialog.open(ModalConfirmComponent, {
       data: modalData,
       width: '320px',
-      height: '320px'
-    }).afterClosed().subscribe((canClose: boolean) => console.log(canClose));
+      height: '180px'
+    }).afterClosed().subscribe((canClose: boolean) => {
+      if (canClose) {
+        const index = this.data.items.findIndex((u: User) => u.id === user.id);
+        this.data.items.splice(index, 1);
+        this.data = {
+          ...this.data
+        };
+      }
+    });
   }
 
   edit(user: User) {
@@ -71,6 +78,13 @@ export class AppComponent {
         model: {},
         config: this.config
       }
-    }).afterClosed().subscribe((user: User) => user ? this.data.items.push(user) : null);
+    }).afterClosed().subscribe((user: User) => {
+      if (user) {
+        user.id = this.data.items.length;
+        this.data.items = [...this.data.items, user];
+        this.data = { ...this.data };
+      }
+      console.log(this.data.items);
+    });
   }
 }

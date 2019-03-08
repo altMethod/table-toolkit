@@ -1,23 +1,18 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FieldBase } from '../base-field';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgControl } from '@angular/forms';
 import { MatRadioChange } from '@angular/material';
 import { RadioGroupFieldInfo } from '../../field-info';
 
 @Component({
   selector: 'bp-radio-group',
   templateUrl: './radio-group.component.html',
-  styleUrls: ['./radio-group.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => RadioGroupComponent),
-      multi: true
-    }
-  ]
+  styleUrls: ['./radio-group.component.scss']
 })
 export class RadioGroupComponent extends FieldBase {
-  constructor() { super(); }
+  constructor(ctrl: NgControl) {
+    super(ctrl);
+  }
 
   @Input()
   field: RadioGroupFieldInfo;

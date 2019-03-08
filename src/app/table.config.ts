@@ -2,11 +2,11 @@ import {
   TableBaseConfig, NumberFieldInfo, TextFieldInfo,
   SelectFieldInfo, SelectModel, DateFieldInfo, MultipleFieldInfo,
   CheckboxFieldInfo, RadioGroupFieldInfo, ContainerFieldInfo, DynamicFieldInfo
-} from 'table-toolkit';
+} from 'projects/table-toolkit/src/';
 
 export const config: TableBaseConfig = {
   fields: [
-    new TextFieldInfo('Name', 'name'),
+    new TextFieldInfo('Name', 'name').required().withDefaultValue('Vlad'),
     new NumberFieldInfo('Age', 'age'),
     new DateFieldInfo('Hire Day', 'hireDate'),
     new SelectFieldInfo('Gender', 'gender')
@@ -43,7 +43,9 @@ export const config: TableBaseConfig = {
   ],
   showActionsColumn: true,
   showEdit: true,
-  showAdd: true
+  showAdd: true,
+  showDelete: true,
+  showPaginator: true
 };
 
 export const data: Array<User> = [

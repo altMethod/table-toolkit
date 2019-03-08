@@ -1,5 +1,5 @@
 <mat-form-field floatLabel='always'>
-  <mat-select [disabled]='field.isReadOnly || disabled' [(value)]='innerValue' (selectionChange)='change($event)' [placeholder]='field.label'>
+  <mat-select [formControl]='control' (selectionChange)='change($event)' [placeholder]='field.label'>
     <mat-option *ngFor='let item of field.options' [value]='item.value'>{{item.label}}</mat-option>
   </mat-select>
 </mat-form-field>

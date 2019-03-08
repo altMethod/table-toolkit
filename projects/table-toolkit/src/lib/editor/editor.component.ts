@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FieldInfo } from '../field-info';
-import { FormGroup, FormControl, FormBuilder, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FieldInfo, ColumnType } from '../field-info';
+import { FormGroup, FormControl, FormBuilder, AbstractControl, ValidatorFn, Validators } from '@angular/forms';
+import { isNotNullOrUndefined } from '../utils';
 
 @Component({
   selector: 'bp-editor',
@@ -47,8 +48,18 @@ export class EditorComponent implements OnInit {
   }
 
   private createControl(field: FieldInfo): AbstractControl {
-    const value = this.innerModel[field.name] !== null ? this.innerModel[field.name] : field.defaultValue;
+    let value = isNotNullOrUndefined(this.innerModel[field.name]) ? this.innerModel[field.name] : field.defaultValue;
+    if (field.type === ColumnType.container) {
+      if (field.flattened) {
+        value = field.innerFields.reduce((acc: any, current: FieldInfo) =>
+          Object.assign(acc, {
+            [current.name]: isNotNullOrUndefined(this.innerModel[current.name]) ?
+              this.innerModel[current.name] : current.defaultValue
+          }), {});
+      }
+    }
+
     const disabled = field.isReadOnly ? true : false;
-    return new FormControl({ value, disabled }, field.validators);
+    return new FormControl({ value, disabled }, Validators.compose(field.validators));
   }
 }
