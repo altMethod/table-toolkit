@@ -35,6 +35,11 @@ export const config: TableBaseConfig = {
         new DateFieldInfo('Birthday', 'birthday'),
         new CheckboxFieldInfo('First Job', 'isFirstJob')
       ]),
+    new ContainerFieldInfo('Additional Info', 'additionalInfo')
+      .withInnerFields([
+        new DateFieldInfo('Marriage Date', 'marriageDate'),
+        new CheckboxFieldInfo('Married?', 'married')
+      ]).unflattened(),
     new DynamicFieldInfo('Work history', 'history')
       .withInnerFields([
         new TextFieldInfo('Employer', 'employer'),
@@ -60,6 +65,10 @@ export const data: Array<User> = [
     hireDate: new Date(2018, 2, 16),
     birthday: new Date(1993, 8, 29),
     isFirstJob: false,
+    additionalInfo: {
+      marriageDate: new Date(2018, 9, 27),
+      married: true
+    },
     history: [{
       employer: 'JTI',
       hireDate: new Date(2018, 8, 1)
@@ -76,7 +85,11 @@ export const data: Array<User> = [
     hireDate: new Date(2015, 3, 2),
     birthday: new Date(1987, 7, 16),
     isFirstJob: true,
-    history: []
+    additionalInfo: {
+      marriageDate: new Date(2018, 9, 27),
+      married: true
+    },
+    history: [],
   }
 ];
 
@@ -92,6 +105,10 @@ export interface User {
   birthday: Date;
   isFirstJob: boolean;
   history: Array<HireHistory>;
+  additionalInfo: {
+    married: boolean,
+    marriageDate: Date
+  };
 }
 
 export interface HireHistory {

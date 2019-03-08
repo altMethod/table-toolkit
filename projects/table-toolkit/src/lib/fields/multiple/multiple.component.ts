@@ -23,7 +23,8 @@ export class MultipleComponent extends FieldBase implements OnInit {
   @ViewChild('input')
   input: ElementRef;
 
-  control: FormControl = new FormControl();
+  autocompleteControl: FormControl = new FormControl();
+
   options: Array<SelectModel> = [];
   innerValue: Array<any> = [];
   innerLabels: Array<string> = [];
@@ -55,7 +56,7 @@ export class MultipleComponent extends FieldBase implements OnInit {
 
     this.filteredOptions = merge(
       of(this.filter('')),
-      this.control.valueChanges.pipe(
+      this.autocompleteControl.valueChanges.pipe(
         map((val: any) => this.filter(val))
       )
     );
@@ -80,11 +81,11 @@ export class MultipleComponent extends FieldBase implements OnInit {
     const labelIndex = this.innerLabels.indexOf(option.label);
     this.innerLabels.splice(labelIndex, 1);
 
-    if (this.control.value) {
-      this.control.setValue('');
+    if (this.autocompleteControl.value) {
+      this.autocompleteControl.setValue('');
     } else {
-      this.control.setValue('#');
-      this.control.setValue('');
+      this.autocompleteControl.setValue('#');
+      this.autocompleteControl.setValue('');
     }
     this.onChangeCallbackWrapper(this.field.showOperator);
   }
@@ -94,7 +95,7 @@ export class MultipleComponent extends FieldBase implements OnInit {
     this.innerLabels.push(option.label);
 
     this.options.splice(this.options.findIndex(e => e.value === option.value), 1);
-    this.control.setValue('');
+    this.autocompleteControl.setValue('');
     this.onChangeCallbackWrapper(this.field.showOperator);
     this.input.nativeElement.blur();
   }

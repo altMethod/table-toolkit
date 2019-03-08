@@ -47,15 +47,33 @@ export class EditorComponent implements OnInit {
     this.fields.map((field: FieldInfo) => this.form.addControl(field.name, this.createControl(field)));
   }
 
+  onSave() {
+    const model = this.fields.reduce((acc: any, current: FieldInfo) => {
+      if (current.type !== ColumnType.container || (current.type === ColumnType.container) && !current.flattened) {
+        return { ...acc, [current.name]: this.form.get(current.name).value };
+      }
+
+      if (current.type === ColumnType.container && current.flattened) {
+        const containerValue = current.innerFields.reduce((innerAcc: any, innerCurrent: FieldInfo) => {
+          const innerValue = this.form.get(current.name).value[innerCurrent.name];
+          return { ...innerAcc, [innerCurrent.name]: innerValue };
+        }, {});
+        return { ...acc, ...containerValue };
+      }
+    }, {});
+    this.save.emit(model);
+  }
+
   private createControl(field: FieldInfo): AbstractControl {
     let value = isNotNullOrUndefined(this.innerModel[field.name]) ? this.innerModel[field.name] : field.defaultValue;
+
     if (field.type === ColumnType.container) {
       if (field.flattened) {
-        value = field.innerFields.reduce((acc: any, current: FieldInfo) =>
-          Object.assign(acc, {
-            [current.name]: isNotNullOrUndefined(this.innerModel[current.name]) ?
-              this.innerModel[current.name] : current.defaultValue
-          }), {});
+        value = field.innerFields.reduce((acc: any, current: FieldInfo) => {
+          const initialValue = isNotNullOrUndefined(this.innerModel[current.name]) ?
+            this.innerModel[current.name] : current.defaultValue;
+          return Object.assign(acc, { [current.name]: initialValue });
+        }, {});
       }
     }
 

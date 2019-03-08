@@ -5,7 +5,7 @@
   </mat-select>
 </mat-form-field>
 <mat-form-field class="input-box" floatLabel='always'>
-  <input #input name="currentFilterValue" #input [placeholder]="field.label" type="text" [formControl]="control"
+  <input #input name="currentFilterValue" #input [placeholder]="field.label" type="text" [formControl]="autocompleteControl"
     matInput [matAutocomplete]="auto" [attr.disabled]='field.isReadOnly' />
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)='optionSelected($event.option.value)'>
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option">

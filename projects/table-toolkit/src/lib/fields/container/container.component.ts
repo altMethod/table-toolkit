@@ -28,7 +28,8 @@ export class ContainerComponent extends FieldBase implements AfterContentInit {
     this.form = new FormGroup({});
     this.field.innerFields.map((field: FieldInfo) => {
       const disabled = field.isReadOnly ? true : false;
-      const controlValue = this.control.value;
+      const controlValue = this.control.value[field.name];
+
       const value = isNotNullOrUndefined(controlValue)
         ? controlValue : field.defaultValue;
       const control = new FormControl({ value, disabled }, Validators.compose(field.validators));

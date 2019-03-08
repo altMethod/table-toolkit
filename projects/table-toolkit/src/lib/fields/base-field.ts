@@ -10,8 +10,8 @@ export class FieldBase implements ControlValueAccessor, OnInit {
   protected onChangedCallback: (_: any) => void;
   protected onTouchedCallback: (_: any) => void;
   protected ngControl: NgControl;
-  protected control: AbstractControl;
 
+  control: AbstractControl;
   operator = '=';
   disabled = false;
   innerValue: any;
