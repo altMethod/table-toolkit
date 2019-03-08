@@ -2,6 +2,7 @@
 A set of Angular 7 components built with **Angular Material** with the purpose of displaying and filtering tables.
 
 Demo project [here](https://github.com/browsepedia/table-toolkit-demo)
+Or clone this repository and start it with ng serve.
 ### 1. Installation
 The npm Package
 ``` npm
