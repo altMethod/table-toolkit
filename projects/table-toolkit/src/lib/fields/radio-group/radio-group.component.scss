@@ -1,7 +1,17 @@
+:host {
+  display: flex;
+}
+
 .table-radio-group {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   padding-top: 12px;
   padding-bottom: 12px;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  &>.mat-radio-button {
+    margin-right: 8px;
+  }
 }

@@ -47,6 +47,8 @@ export abstract class FieldInfo {
   protected _showOperator = false;
   protected _trueLabel = 'Yes';
   protected _falseLabel = 'No';
+  protected _canFilter = true;
+  protected _parent = null;
 
   get label(): string { return this._label; }
   get name(): string { return this._name; }
@@ -67,6 +69,8 @@ export abstract class FieldInfo {
   get showOperator(): boolean { return this._showOperator; }
   get trueLabel(): string { return this._trueLabel; }
   get falseLabel(): string { return this._falseLabel; }
+  get canFilter(): boolean { return this._canFilter; }
+  get parent(): FieldInfo { return this._parent; }
 
   hiddenInTable(): FieldInfo {
     this._hideInTable = true;
@@ -116,6 +120,15 @@ export abstract class FieldInfo {
   withMinWidth(pixels: number): FieldInfo {
     this._minWidth = pixels;
     return this;
+  }
+
+  cannotFilter(): FieldInfo {
+    this._canFilter = false;
+    return this;
+  }
+
+  setParent(parent: FieldInfo): void {
+    this._parent = parent;
   }
 }
 
@@ -321,6 +334,8 @@ export class ContainerFieldInfo extends FieldInfo {
   }
 
   withInnerFields(fields: Array<FieldInfo>): ContainerFieldInfo {
+    const parent = this;
+    fields.map(field => field.setParent(parent));
     this._innerFields = fields;
     return this;
   }

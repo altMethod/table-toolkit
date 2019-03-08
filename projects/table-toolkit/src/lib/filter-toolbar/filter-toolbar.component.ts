@@ -29,17 +29,8 @@ export class FilterToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.localFilter = { ...this.filter };
-    this.remainingFilters = this.fields.reduce((acc: Array<FieldInfo>, current: FieldInfo) => {
-      if (current.type === ColumnType.container) {
-        return acc.concat(current.innerFields);
-      }
-
-      if (current.type !== ColumnType.dynamic) {
-        return acc.concat(current);
-      }
-
-      return acc;
-    }, []);
+    this.form = this.createForm();
+    this.setRemainingFilters();
   }
 
   onFilter() {
@@ -52,8 +43,6 @@ export class FilterToolbarComponent implements OnInit {
   addFilter(filter: FieldInfo) {
     this.appliedFilters.push(filter);
 
-    this.form.addControl(filter.name, new FormControl());
-
     const index = this.remainingFilters.findIndex(f => f.name === filter.name);
     this.remainingFilters.splice(index, 1);
   }
@@ -61,9 +50,76 @@ export class FilterToolbarComponent implements OnInit {
   removeFilter(filter: FieldInfo) {
     const index = this.appliedFilters.findIndex(f => f.name === filter.name);
     this.appliedFilters.splice(index, 1);
+    this.setRemainingFilters();
+    this.clearFieldValue(filter);
+  }
 
-    this.form.removeControl(filter.name);
+  getFormControl(field: FieldInfo) {
+    if (field.parent && !field.parent.flattened) {
+      return this.form.get(field.parent.name).get(field.name);
+    }
+    return this.form.get(field.name);
+  }
 
-    this.remainingFilters = this.fields.filter(f => !this.appliedFilters.find(e => e.name === f.name));
+  private createForm(): FormGroup {
+    const form = new FormGroup({});
+
+    this.fields.map((field: FieldInfo) => {
+      if (field.type === ColumnType.container) {
+        if (field.flattened) {
+          field.innerFields.map((innerField: FieldInfo) => {
+            const value = this.getFieldValue(innerField);
+            form.addControl(innerField.name, new FormControl(value));
+          });
+        } else {
+          form.addControl(field.name, new FormGroup({}));
+          field.innerFields.map((innerField: FieldInfo) => {
+            const value = this.getFieldValue(innerField);
+            (form.get(field.name) as FormGroup).addControl(innerField.name, new FormControl(value));
+          });
+        }
+      } else {
+        const value = this.getFieldValue(field);
+        form.addControl(field.name, new FormControl(value));
+      }
+    });
+
+    return form;
+  }
+
+  private getFieldValue(field: FieldInfo): any {
+    if (field.parent) {
+      if (field.parent.flattened) {
+        return this.filter && this.filter[field.name] ? this.filter[field.name] : null;
+      } else {
+        if (!field.parent.flattened) {
+          return this.filter && this.filter[field.parent.name] && this.filter[field.parent.name][field.name]
+            ? this.filter[field.parent.name][field.name] : null;
+        }
+      }
+    }
+    return this.filter && this.filter[field.name] ? this.filter[field.name] : null;
+  }
+
+  private clearFieldValue(field: FieldInfo): void {
+    if (field.parent && !field.parent.flattened) {
+      this.form.get(field.parent.name).get(field.name).setValue('');
+    } else {
+      this.form.get(field.name).setValue('');
+    }
+  }
+
+  private setRemainingFilters(): void {
+    this.remainingFilters = this.fields.reduce((acc: Array<FieldInfo>, current: FieldInfo) => {
+      if (current.type === ColumnType.container) {
+        return acc.concat(current.innerFields);
+      }
+
+      if (current.type !== ColumnType.dynamic) {
+        return acc.concat(current);
+      }
+
+      return acc;
+    }, []).filter(f => !this.appliedFilters.find(e => e.name === f.name));
   }
 }

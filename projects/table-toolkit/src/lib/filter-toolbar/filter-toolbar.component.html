@@ -13,19 +13,23 @@
   <div class="filter-toolbar-item" *ngFor='let field of appliedFilters'>
     <ng-container [ngSwitch]='field.type'>
 
-      <bp-number-field [formControlName]='field.name' *ngSwitchCase="'number'" [field]='field'></bp-number-field>
+      <bp-number-field [formControl]='getFormControl(field)' *ngSwitchCase="'number'" [field]='field'></bp-number-field>
 
-      <bp-text-field [formControlName]='field.name' *ngSwitchCase="'text'" [field]='field'></bp-text-field>
+      <bp-text-field [formControl]='getFormControl(field)' *ngSwitchCase="'text'" [field]='field'></bp-text-field>
 
-      <bp-select-field [formControlName]='field.name' *ngSwitchCase="'select'" [field]='field'></bp-select-field>
+      <bp-select-field [formControl]='getFormControl(field)' *ngSwitchCase="'select'" [field]='field'></bp-select-field>
 
-      <bp-date-field [formControlName]='field.name' *ngSwitchCase="'date'" [field]='field'></bp-date-field>
+      <bp-date-field [formControl]='getFormControl(field)' *ngSwitchCase="'date'" [field]='field'></bp-date-field>
 
-      <bp-checkbox-field [formControlName]='field.name' *ngSwitchCase="'checkbox'" [field]='field'>
+      <bp-checkbox-field [formControl]='getFormControl(field)' *ngSwitchCase="'checkbox'" [field]='field'>
 
       </bp-checkbox-field>
 
-      <bp-multiple-field [formControlName]='field.name' *ngSwitchCase="'multiple'" [field]='field'>
+      <bp-radio-group [formControl]='getFormControl(field)' *ngSwitchCase="'radioGroup'" [field]='field'>
+
+      </bp-radio-group>
+
+      <bp-multiple-field [formControl]='getFormControl(field)' *ngSwitchCase="'multiple'" [field]='field'>
 
       </bp-multiple-field>
 

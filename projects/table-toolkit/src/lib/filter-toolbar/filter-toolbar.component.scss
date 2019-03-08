@@ -13,7 +13,7 @@
       margin-right: 8px;
     }
 
-    &:nth-last-child(3) {
+    &:last-child {
       &>.next-arrow {
         display: none;
       }
