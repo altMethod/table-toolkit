@@ -1,6 +1,14 @@
 {
   "name": "browsepedia-table-toolkit",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "keywords": [
+    "Angular7",
+    "FormGeneration",
+    "Data Table",
+    "Table",
+    "Angular Material",
+    "Filter"
+  ],
   "homepage": "https://github.com/browsepedia/table-toolkit#readme",
   "bugs": {
     "email": "vlad@browsepedia.com",
