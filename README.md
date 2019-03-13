@@ -1,4 +1,4 @@
-# Browsepedia Angular Table Toolkit (beta)
+# Browsepedia Angular Table Toolkit
 A set of Angular 7 components built with **Angular Material** with the purpose of displaying and filtering tables.
 Feel free to help out with testing, bugfixing and extending base functionality.
 
